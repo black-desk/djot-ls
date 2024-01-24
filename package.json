@@ -1,8 +1,8 @@
 {
   "devDependencies": {
+    "@types/node": "20.8.2",
     "gts": "^5.2.0",
-    "typescript": "~5.2.0",
-    "@types/node": "20.8.2"
+    "typescript": "~5.2.0"
   },
   "scripts": {
     "lint": "gts lint",
@@ -12,5 +12,8 @@
     "prepare": "npm run compile",
     "pretest": "npm run compile",
     "posttest": "npm run lint"
+  },
+  "dependencies": {
+    "vscode-languageserver": "^9.0.1"
   }
 }
