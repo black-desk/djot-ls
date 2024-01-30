@@ -3,23 +3,16 @@
 import {
   createConnection,
   TextDocuments,
-  Diagnostic,
-  DiagnosticSeverity,
   ProposedFeatures,
   InitializeParams,
-  DidChangeConfigurationNotification,
-  CompletionItem,
-  CompletionItemKind,
-  TextDocumentPositionParams,
   TextDocumentSyncKind,
   InitializeResult,
-  TextDocumentEdit,
   TextEdit,
   Range,
   Position,
 } from 'vscode-languageserver/node';
 
-import {parse, renderAST, renderDjot} from '@djot/djot';
+import {parse, renderDjot} from '@djot/djot';
 
 import {TextDocument} from 'vscode-languageserver-textdocument';
 
@@ -68,6 +61,7 @@ connection.onInitialize((params: InitializeParams) => {
     };
   }
   result.capabilities.documentFormattingProvider = true;
+  result.capabilities.documentHighlightProvider = true;
   return result;
 });
 
@@ -92,7 +86,6 @@ function parseTextDocument(textDocument: TextDocument) {
 }
 
 connection.onDocumentFormatting(formatting => {
-  console.log('onDocumentFormatting');
   let ast = textDocumentsASTs.get(formatting.textDocument.uri);
   const document = documents.get(formatting.textDocument.uri);
   if (document === undefined) {
