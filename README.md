@@ -8,3 +8,6 @@ powered by [djot.js](https://github.com/jgm/djot.js).
 - [ ] textDocument/semanticTokens/full
 - [ ] textDocument/semanticTokens/full/delta
 - [ ] textDocument/semanticTokens/range
+- [ ] textDocument/definition
+- [ ] textDocument/completion
+- [ ] textDocument/rename
