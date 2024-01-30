@@ -1,0 +1,25 @@
+{#djot-ls}
+# djot-ls
+
+A WIP LSP implementation for [djot](https://github.com/jgm/djot),
+powered by [djot.js](https://github.com/jgm/djot.js).
+
+- [X]
+  textDocument/formatting
+- [ ]
+  textDocument/documentHighlight
+- [ ]
+  textDocument/semanticTokens/full
+- [ ]
+  textDocument/semanticTokens/full/delta
+- [ ]
+  textDocument/semanticTokens/range
+- [ ]
+  textDocument/definition
+- [ ]
+  textDocument/completion
+- [ ]
+  textDocument/rename
+
+
+[djot-ls]: #djot-ls
