@@ -1,6 +1,7 @@
 # djot-lsp
 
-A LSP implementation for djot, powered by djot.js.
+A WIP LSP implementation for [djot](https://github.com/jgm/djot),
+powered by [djot.js](https://github.com/jgm/djot.js).
 
 - [x] textDocument/formatting
 - [ ] textDocument/documentHighlight
