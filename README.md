@@ -1,4 +1,4 @@
-# djot-lsp
+# djot-ls
 
 A WIP LSP implementation for [djot](https://github.com/jgm/djot),
 powered by [djot.js](https://github.com/jgm/djot.js).
