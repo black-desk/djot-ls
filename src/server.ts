@@ -95,7 +95,7 @@ connection.onDocumentFormatting(formatting => {
     ast = parseTextDocument(document);
   }
 
-  const formated = renderDjot(ast);
+  const formated = renderDjot(ast).replace(/ +[\r\n]/gm, '\n');
   return [
     TextEdit.replace(
       Range.create(
