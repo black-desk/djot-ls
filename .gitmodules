@@ -1,3 +1,4 @@
 [submodule "vendor/djot.js"]
 	path = vendor/djot.js
 	url = https://github.com/black-desk/djot.js
+	branch = blackdesk/main
