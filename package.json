@@ -12,14 +12,14 @@
   "scripts": {
     "lint": "gts lint",
     "clean": "gts clean",
-    "compile": "tsc",
+    "compile": "cd ./vendor/djot.js && npm run build && cd ../.. && tsc",
     "fix": "gts fix",
     "prepare": "npm run compile",
     "pretest": "npm run compile",
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "@djot/djot": "^0.2.5",
+    "@djot/djot": "file:vendor/djot.js",
     "vscode-languageserver": "^9.0.1",
     "vscode-languageserver-textdocument": "^1.0.11"
   }
