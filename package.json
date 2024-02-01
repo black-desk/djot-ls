@@ -16,7 +16,8 @@
     "fix": "gts fix",
     "prepare": "npm run compile",
     "pretest": "npm run compile",
-    "posttest": "npm run lint"
+    "posttest": "npm run lint",
+    "update-readme": "npx djot ./README.dj -t pandoc | pandoc -f json -t gfm > README.md"
   },
   "dependencies": {
     "@djot/djot": "file:vendor/djot.js",

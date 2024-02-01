@@ -1,6 +1,9 @@
+<div id="djot-ls" class="section" id="djot-ls">
+
 # djot-ls
 
-A WIP LSP server implementation of [djot], powered by [djot.js].
+A WIP LSP server implementation of [djot](https://github.com/jgm/djot),
+powered by [djot.js](https://github.com/jgm/djot.js).
 
 - [x] textDocument/formatting
 - [ ] textDocument/documentHighlight
@@ -11,7 +14,4 @@ A WIP LSP server implementation of [djot], powered by [djot.js].
 - [ ] textDocument/completion
 - [ ] textDocument/rename
 
-
-[djot]: https://github.com/jgm/djot
-
-[djot.js]: https://github.com/jgm/djot.js
+</div>
