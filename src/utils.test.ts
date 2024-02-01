@@ -1,8 +1,7 @@
-import {formatDjot} from './format';
 import {parse} from '@djot/djot';
+import {formatDjot, getASTNodesAtOffset} from './utils';
 
-describe('formatDjot', () => {
-  const readme = `# djot-ls
+const readme = `# djot-ls
 
 A *WIP* LSP server implementation of [djot][], powered by [djot.js][].
 
@@ -25,7 +24,25 @@ by running \`npm run update-readme\`.
 
 [README.dj]: ./README.dj
 `;
+
+describe('formatDjot', () => {
   it('format djot from ast correctly', () => {
     expect(formatDjot(parse(readme))).toEqual(readme);
+  });
+});
+
+describe('getASTNodesAtOffset', () => {
+  it('get right node', () => {
+    const doc = parse(readme, {sourcePositions: true});
+    let nodes = getASTNodesAtOffset(doc, 0);
+    expect(nodes.length).toEqual(3);
+    nodes = getASTNodesAtOffset(doc, 1);
+    expect(nodes.length).toEqual(3);
+    nodes = getASTNodesAtOffset(doc, 2);
+    expect(nodes.length).toEqual(4);
+    nodes = getASTNodesAtOffset(doc, 10);
+    expect(nodes.length).toEqual(2);
+    nodes = getASTNodesAtOffset(doc, 11);
+    expect(nodes.length).toEqual(4);
   });
 });

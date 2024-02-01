@@ -20,7 +20,7 @@
     "readme": "djot ./README.dj -t pandoc > .README.pandoc.json && node ./scripts/pandoc.js",
     "fix": "gts fix",
     "prepare": "npm run compile && npm run readme",
-    "pretest": "npm run compile && npm run readme",
+    "pretest": "npm run compile",
     "test": "jest",
     "posttest": "npm run lint"
   },
