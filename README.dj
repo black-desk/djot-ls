@@ -1,7 +1,7 @@
 {#djot-ls}
 # djot-ls
 
-A WIP LSP server implementation of [djot][], powered by [djot.js][].
+A *WIP* LSP server implementation of [djot][], powered by [djot.js][].
 
 - [X] textDocument/formatting
 - [ ] textDocument/documentHighlight
