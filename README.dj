@@ -1,8 +1,7 @@
 {#djot-ls}
 # djot-ls
 
-A WIP LSP server implementation of [djot][],
-powered by [djot.js][].
+A WIP LSP server implementation of [djot][], powered by [djot.js][].
 
 - [X] textDocument/formatting
 - [ ] textDocument/documentHighlight
@@ -13,8 +12,7 @@ powered by [djot.js][].
 - [ ] textDocument/completion
 - [ ] textDocument/rename
 
-The markdown version README is generated
-from [README.dj][]
+The markdown version README is generated from [README.dj][]
 by running `npm run update-readme`.
 
 
