@@ -1,7 +1,6 @@
 # djot-ls
 
-A WIP LSP implementation for [djot](https://github.com/jgm/djot),
-powered by [djot.js](https://github.com/jgm/djot.js).
+A WIP LSP server implementation of [djot], powered by [djot.js].
 
 - [x] textDocument/formatting
 - [ ] textDocument/documentHighlight
@@ -11,3 +10,8 @@ powered by [djot.js](https://github.com/jgm/djot.js).
 - [ ] textDocument/definition
 - [ ] textDocument/completion
 - [ ] textDocument/rename
+
+
+[djot]: https://github.com/jgm/djot
+
+[djot.js]: https://github.com/jgm/djot.js
