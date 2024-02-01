@@ -4,6 +4,7 @@ import {
   InitializeResult,
   Position,
   Range,
+  TextDocumentChangeEvent,
   TextDocumentSyncKind,
   TextDocuments,
   TextEdit,
@@ -20,18 +21,13 @@ class DjotLanguageServer {
 
   constructor(connection: Connection, document: TextDocuments<TextDocument>) {
     this.connection = connection;
-
-    connection.onInitialize(this.initialize);
-    connection.onDocumentFormatting(paras => {
-      return [this.formating(paras)];
+    this.connection.onInitialize(this.lspInitialize);
+    this.connection.onDocumentFormatting(paras => {
+      return [this.lspFormating(paras)];
     });
 
     this.document = document;
-
-    this.document.onDidChangeContent(change => {
-      this.parseTextDocument(change.document);
-    });
-
+    this.document.onDidChangeContent(this.lspChangeContent);
     this.document.listen(this.connection);
   }
 
@@ -47,9 +43,11 @@ class DjotLanguageServer {
     return ast;
   }
 
-  // LSP event handlers:
+  lspChangeContent(change: TextDocumentChangeEvent<TextDocument>) {
+    this.parseTextDocument(change.document);
+  }
 
-  initialize(): InitializeResult {
+  lspInitialize(): InitializeResult {
     return {
       capabilities: {
         textDocumentSync: TextDocumentSyncKind.Incremental,
@@ -63,7 +61,7 @@ class DjotLanguageServer {
     };
   }
 
-  formating(paras: DocumentFormattingParams): TextEdit {
+  lspFormating(paras: DocumentFormattingParams): TextEdit {
     let ast = this.asts.get(paras.textDocument.uri);
     const document = this.document.get(paras.textDocument.uri);
     if (document === undefined) {
