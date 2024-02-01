@@ -7,7 +7,7 @@
   },
   "main": "src/server.ts",
   "bin": {
-    "djot-ls": "./build/src/server.js"
+    "djot-ls": "./djot-ls"
   },
   "scripts": {
     "lint": "gts lint",
