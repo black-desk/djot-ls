@@ -14,4 +14,7 @@ powered by [djot.js](https://github.com/jgm/djot.js).
 - [ ] textDocument/completion
 - [ ] textDocument/rename
 
+The markdown version README is generated from [README.dj](./README.dj)
+by running `npm run update-readme`.
+
 </div>
