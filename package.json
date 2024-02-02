@@ -5,9 +5,9 @@
     "gts": "^5.2.0",
     "typescript": "~5.2.0"
   },
-  "main": "src/server.ts",
+  "main": "./src/main.ts",
   "bin": {
-    "djot-ls": "./djot-ls"
+    "djot-ls": "./build/src/main.js"
   },
   "scripts": {
     "lint": "gts lint",

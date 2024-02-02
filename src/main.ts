@@ -1,3 +1,5 @@
+#!/bin/env node
+
 import {
   createConnection,
   TextDocuments,
