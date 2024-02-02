@@ -21,13 +21,17 @@ class DjotLanguageServer {
 
   constructor(connection: Connection, document: TextDocuments<TextDocument>) {
     this.connection = connection;
-    this.connection.onInitialize(this.lspInitialize);
+    this.connection.onInitialize(() => {
+      return this.lspInitialize();
+    });
     this.connection.onDocumentFormatting(paras => {
       return [this.lspFormating(paras)];
     });
 
     this.document = document;
-    this.document.onDidChangeContent(this.lspChangeContent);
+    this.document.onDidChangeContent(paras => {
+      return this.lspChangeContent(paras);
+    });
     this.document.listen(this.connection);
   }
 
@@ -37,7 +41,6 @@ class DjotLanguageServer {
 
   parseTextDocument(textDocument: TextDocument) {
     const text = textDocument.getText();
-    console.error(text);
     const ast = parse(text);
     this.asts.set(textDocument.uri, ast);
     return ast;
@@ -57,13 +60,14 @@ class DjotLanguageServer {
   }
 
   lspFormating(paras: DocumentFormattingParams): TextEdit {
-    let ast = this.asts.get(paras.textDocument.uri);
-    const document = this.document.get(paras.textDocument.uri);
-    if (document === undefined) {
-      throw 'Unknow document ' + paras.textDocument.uri;
-    }
+    const ast = this.asts.get(paras.textDocument.uri);
     if (!ast) {
-      ast = this.parseTextDocument(document);
+      throw 'AST of ' + paras.textDocument.uri + ' should have been parsed';
+    }
+
+    const document = this.document.get(paras.textDocument.uri);
+    if (!document) {
+      throw 'Unknow document ' + paras.textDocument.uri;
     }
 
     const formated = renderDjot(ast).replace(/ +[\r\n]/gm, '\n');
