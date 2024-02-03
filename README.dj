@@ -1,4 +1,3 @@
-{#djot-ls}
 # djot-ls
 
 A *WIP* LSP server implementation of [djot][], powered by [djot.js][].
@@ -15,8 +14,6 @@ A *WIP* LSP server implementation of [djot][], powered by [djot.js][].
 The markdown version README is generated from [README.dj][]
 by running `npm run update-readme`.
 
-
-[djot-ls]: #djot-ls
 
 [djot]: https://github.com/jgm/djot
 
