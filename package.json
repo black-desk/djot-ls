@@ -21,7 +21,7 @@
     "pretest": "npm run compile",
     "test": "jest",
     "posttest": "npm run lint",
-    "update-readme": "npx djot ./README.dj -t pandoc | pandoc -f json -t gfm > README.md"
+    "update-readme": "djot ./README.dj -t pandoc | pandoc -f json -t gfm > README.md"
   },
   "dependencies": {
     "@djot/djot": "git+https://github.com/black-desk/djot.js",
