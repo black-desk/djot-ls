@@ -11,6 +11,7 @@ import {
 } from 'vscode-languageserver/node';
 import {TextDocument} from 'vscode-languageserver-textdocument';
 import {parse, renderDjot} from '@djot/djot';
+import {formatDjot} from './format';
 
 type AST = ReturnType<typeof parse>;
 
@@ -70,7 +71,7 @@ class DjotLanguageServer {
       throw 'Unknow document ' + paras.textDocument.uri;
     }
 
-    const formated = renderDjot(ast).replace(/ +[\r\n]/gm, '\n');
+    const formated = formatDjot(ast);
     return TextEdit.replace(
       Range.create(
         Position.create(0, 0),
