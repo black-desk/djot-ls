@@ -1,0 +1,35 @@
+name: Checks
+
+on: [pull_request]
+
+jobs:
+  checks:
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: black-desk/checks@master
+
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - run: |
+          npm ci
+          npm test
+
+  pass:
+    name: Pass
+    needs: [checks, build-and-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: |
+          true

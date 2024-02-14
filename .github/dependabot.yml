@@ -1,0 +1,14 @@
+version: 2
+updates:
+    - directory: /
+      package-ecosystem: github-actions
+      schedule:
+        interval: daily
+    - directory: /
+      package-ecosystem: npm
+      schedule:
+        interval: daily
+    - directory: /
+      package-ecosystem: gitsubmodule
+      schedule:
+        interval: daily
