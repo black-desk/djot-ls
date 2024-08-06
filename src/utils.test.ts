@@ -43,6 +43,6 @@ describe('getASTNodesAtOffset', () => {
     nodes = getASTNodesAtOffset(doc, 10);
     expect(nodes.length).toEqual(2);
     nodes = getASTNodesAtOffset(doc, 11);
-    expect(nodes.length).toEqual(4);
+    expect(nodes.length).toEqual(5);
   });
 });
