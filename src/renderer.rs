@@ -1,15 +1,15 @@
 //! An HTML renderer that takes an iterator of [`Event`]s and emits HTML.
 
-use crate::Alignment;
-use crate::Container;
-use crate::Event;
-use crate::LinkType;
-use crate::ListKind;
-use crate::Map;
-use crate::OrderedListNumbering::*;
-use crate::Render;
-use crate::RenderRef;
-use crate::SpanLinkType;
+use jotdown::Alignment;
+use jotdown::Container;
+use jotdown::Event;
+use jotdown::LinkType;
+use jotdown::ListKind;
+use jotdown::Map;
+use jotdown::OrderedListNumbering::*;
+use jotdown::Render;
+use jotdown::RenderRef;
+use jotdown::SpanLinkType;
 
 /// Render events into a string.
 ///
