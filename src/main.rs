@@ -1,15 +1,9 @@
+use djot_ls::djot::render_to_string;
 use jotdown;
-use std::fmt::Write;
 
 #[must_use]
 pub fn jotdown_parse(djot: &str) -> String {
-    let mut out = String::new();
-    for (e, sp) in jotdown::Parser::new(djot).into_offset_iter() {
-        write!(out, "{:?}", e).unwrap();
-        write!(out, " {:?} {:?}", &djot[sp.clone()], sp).unwrap();
-        writeln!(out).unwrap();
-    }
-    out
+    render_to_string(jotdown::Parser::new(djot))
 }
 
 fn main() {

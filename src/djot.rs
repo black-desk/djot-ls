@@ -1,11 +1,10 @@
-//! An HTML renderer that takes an iterator of [`Event`]s and emits HTML.
+//! An djot renderer that takes an iterator of [`Event`]s and emits djot
 
 use jotdown::Alignment;
 use jotdown::Container;
 use jotdown::Event;
 use jotdown::LinkType;
 use jotdown::ListKind;
-use jotdown::Map;
 use jotdown::OrderedListNumbering::*;
 use jotdown::Render;
 use jotdown::RenderRef;
@@ -20,7 +19,7 @@ use jotdown::SpanLinkType;
 ///
 /// ```
 /// let events = jotdown::Parser::new("hello");
-/// assert_eq!(jotdown::html::render_to_string(events), "<p>hello</p>\n");
+/// assert_eq!(djot_ls::renderer::render_to_string(events), "hello\n");
 /// ```
 pub fn render_to_string<'s, I>(events: I) -> String
 where
@@ -34,56 +33,6 @@ where
 #[derive(Clone)]
 /// Options for indentation of HTML output.
 pub struct Indentation {
-    /// String to use for each indentation level.
-    ///
-    /// NOTE: The resulting HTML output may be invalid depending on the contents of this string.
-    ///
-    /// # Examples
-    ///
-    /// Defaults to a single tab character:
-    ///
-    /// ```
-    /// # use jotdown::*;
-    /// # use jotdown::html::*;
-    /// let src = "> a\n";
-    /// let events = Parser::new(src);
-    ///
-    /// let mut html = String::new();
-    /// let renderer = Renderer::indented(Indentation::default());
-    /// renderer.push(events.clone(), &mut html).unwrap();
-    /// assert_eq!(
-    ///     html,
-    ///     concat!(
-    ///         "<blockquote>\n",
-    ///         "\t<p>a</p>\n",
-    ///         "</blockquote>\n",
-    ///     ),
-    /// );
-    /// ```
-    ///
-    /// To indent with e.g. 4 spaces, set to `"    "`:
-    ///
-    /// ```
-    /// # use jotdown::*;
-    /// # use jotdown::html::*;
-    /// # let src = "> a\n";
-    /// # let events = Parser::new(src);
-    /// # let mut html = String::new();
-    /// let renderer = Renderer::indented(Indentation {
-    ///     string: "    ".to_string(),
-    ///     ..Indentation::default()
-    /// });
-    /// renderer.push(events.clone(), &mut html).unwrap();
-    /// assert_eq!(
-    ///     html,
-    ///     concat!(
-    ///         "<blockquote>\n",
-    ///         "    <p>a</p>\n",
-    ///         "</blockquote>\n",
-    ///     ),
-    /// );
-    /// ```
-    pub string: String,
     /// Number of indentation levels to use for the outermost elements.
     ///
     /// # Examples
@@ -136,10 +85,7 @@ pub struct Indentation {
 
 impl Default for Indentation {
     fn default() -> Self {
-        Self {
-            string: "\t".to_string(),
-            initial_level: 0,
-        }
+        Self { initial_level: 0 }
     }
 }
 
@@ -153,32 +99,6 @@ pub struct Renderer {
 }
 
 impl Renderer {
-    /// Create a renderer that emits no whitespace between elements.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// # use jotdown::*;
-    /// # use jotdown::html::*;
-    /// let src = concat!(
-    ///     "- a\n",
-    ///     "\n",
-    ///     "  - b\n",
-    ///     "\n",
-    ///     "  - c\n",
-    /// );
-    /// let mut actual = String::new();
-    /// let renderer = Renderer::minified();
-    /// renderer.push(Parser::new(src), &mut actual).unwrap();
-    /// let expected =
-    ///     "<ul><li>a<ul><li><p>b</p></li><li><p>c</p></li></ul></li></ul>";
-    /// assert_eq!(actual, expected);
-    /// ```
-    #[must_use]
-    pub fn minified() -> Self {
-        Self { indent: None }
-    }
-
     /// Create a renderer that indents lines based on their block element depth.
     ///
     /// See the [`Indentation`] struct for indentation options.
@@ -232,40 +152,31 @@ impl Default for Renderer {
     ///
     /// ```
     /// # use jotdown::*;
-    /// # use jotdown::html::*;
+    /// # use djot_ls::djot::*;
     /// let src = concat!(
+    ///     "- a\n",
+    ///     "\n",
+    ///     "\n",
+    ///     "  - b\n",
+    ///     "\n",
+    ///     "  - c\n",
+    /// );
+    ///
+    /// let mut actual = String::new();
+    /// let renderer = Renderer::default();
+    /// renderer.push(Parser::new(src), &mut actual).unwrap();
+    /// let expected = concat!(
     ///     "- a\n",
     ///     "\n",
     ///     "  - b\n",
     ///     "\n",
     ///     "  - c\n",
     /// );
-    /// let mut actual = String::new();
-    /// let renderer = Renderer::default();
-    /// renderer.push(Parser::new(src), &mut actual).unwrap();
-    /// let expected = concat!(
-    ///     "<ul>\n",
-    ///     "<li>\n",
-    ///     "a\n",
-    ///     "<ul>\n",
-    ///     "<li>\n",
-    ///     "<p>b</p>\n",
-    ///     "</li>\n",
-    ///     "<li>\n",
-    ///     "<p>c</p>\n",
-    ///     "</li>\n",
-    ///     "</ul>\n",
-    ///     "</li>\n",
-    ///     "</ul>\n",
-    /// );
     /// assert_eq!(actual, expected);
     /// ```
     fn default() -> Self {
         Self {
-            indent: Some(Indentation {
-                string: String::new(),
-                initial_level: 0,
-            }),
+            indent: Some(Indentation::default()),
         }
     }
 }
@@ -365,13 +276,10 @@ impl<'s, 'f> Writer<'s, 'f> {
     where
         W: std::fmt::Write,
     {
-        if let Some(indent) = self.indent {
-            if !indent.string.is_empty() {
-                for _ in 0..self.depth {
-                    out.write_str(&indent.string)?;
-                }
-            }
+        for _ in 0..self.depth {
+            out.write_str(" ")?;
         }
+
         Ok(())
     }
 
@@ -840,7 +748,7 @@ struct Footnotes<'s> {
     /// Footnote references in the order they were first encountered.
     references: Vec<&'s str>,
     /// Events for each footnote.
-    events: Map<&'s str, Vec<Event<'s>>>,
+    events: std::collections::BTreeMap<&'s str, Vec<Event<'s>>>,
     /// Number of last footnote that was emitted.
     number: usize,
 }
