@@ -19,7 +19,7 @@ use jotdown::SpanLinkType;
 ///
 /// ```
 /// let events = jotdown::Parser::new("hello");
-/// assert_eq!(djot_ls::renderer::render_to_string(events), "hello\n");
+/// assert_eq!(djot_ls::djot::render_to_string(events), "hello\n");
 /// ```
 pub fn render_to_string<'s, I>(events: I) -> String
 where
